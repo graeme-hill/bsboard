@@ -1,22 +1,35 @@
 import React from 'react';
+import './board.css';
 
-const Board = ({ options, frames, fetchFrames }) => {
-    console.log('frame', frames);
-    return (
-        <div>
-            <div onClick={() => fetchFrames(options.game, options.engine)}>
-                {options.game}
-            </div>
+class Board extends React.Component {
+    componentDidMount() {
+        this.props.fetchFrames(
+            this.props.options.game, this.props.options.engine);
+    }
+
+    render() {
+        const options = this.props.options;
+        const grid = this.props.grid;
+
+        return (
             <div>
-                {options.engine}
+                <div className="grid">
+                    {grid.map((row, rowIndex) => (
+                        <div className="row" key={'row' + rowIndex}>
+                            {row.map((cell) => (
+                                <div className={"cell " + (cell.isFood ? "food" : "")} key={'cell' + cell.index} style={{backgroundColor: cell.color}}>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
             </div>
-            <div>
-                {frames.map(f => (
-                    <div key={f.Turn}>Turn: {f.Turn}</div>
-                ))}
-            </div>
-        </div>
-    );
-};
+        );
+    }
+}
+
+// const Board = ({ options, grid, fetchFrames }) => {
+    
+// };
 
 export default Board;

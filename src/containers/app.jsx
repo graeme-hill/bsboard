@@ -6,10 +6,9 @@ import { fetchFrames } from '../actions';
 const options = parseUrl();
 
 const mapStateToProps = state => {
-    console.log("mapStateToProps", state);
     return {
         options: options,
-        frames: state.frames
+        grid: state.grid
     };
 };
 

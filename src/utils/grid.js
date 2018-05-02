@@ -15,15 +15,31 @@ function makeCellLookup(game, frame) {
     return lookup;
 }
 
+function makeFoodLookup(game, frame) {
+    const lookup = {};
+
+    for (const food of frame.Food) {
+        const index = cellIndex(game, food.Y, food.X);
+        lookup[index] = true;
+    }
+
+    return lookup;
+}
+
 export function makeGrid(game, frame) {
     const grid = [];
-    const lookup = makeCellLookup(game, frame);
+    const snakeLookup = makeCellLookup(game, frame);
+    const foodLookup = makeFoodLookup(game, frame);
     for (let row = 0; row < game.Game.Height; row++) {
         const column = [];
         for (let col = 0; col < game.Game.Height; col++) {
             const index = cellIndex(game, row, col);
-            column.push(lookup[index] || null);
+            const snake = snakeLookup[index];
+            const color = snake && snake.Color ? snake.Color : null;
+            const isFood = foodLookup[index];
+            column.push({ index, color, isFood });
         }
+        grid.push(column);
     }
     return grid;
 }

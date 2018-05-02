@@ -9,7 +9,7 @@ import thunkMiddleware from 'redux-thunk'
 const middleware = applyMiddleware(thunkMiddleware);
 const initialState = {
     options: null,
-    frames: []
+    grid: []
 };
 const store = createStore(rootReducer, initialState, middleware);
 

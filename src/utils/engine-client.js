@@ -40,7 +40,10 @@ function get(url, query) {
 }
 
 function isLastFrameOfGame(game, frame) {
-    return game.LastFrame && game.LastFrame === frame.Turn;
+    if (!frame) {
+        return false;
+    }
+    return game.LastFrame && game.LastFrame.Turn <= frame.Turn;
 }
 
 function readFramePages(game, baseUrl, receiveFrame, page) {
